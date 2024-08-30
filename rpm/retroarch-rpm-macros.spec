@@ -5,9 +5,6 @@ Summary: RPM macros for libretro and retroarch
 License: BSD
 BuildArch: noarch
 Source0: %{name}-%{version}.tar.gz
-Source1: macros.retroarch
-Source2: libretro-example.spec.template
-Source3: libretro-example.desktop.in
 
 %description
 %{summary}.
@@ -20,9 +17,9 @@ See the packages example .spec file on how to use.
 %build
 
 %install
-install -Dpm644 %SOURCE1 %{buildroot}%{_rpmconfigdir}/macros.d/macros.retroarch
-install -Dpm644 %SOURCE2 %{buildroot}%{_docdir}/%{name}/libretro-example.spec
-install -Dpm644 %SOURCE3 %{buildroot}%{_docdir}/%{name}/libretro-example.desktop.in
+install -Dpm644 macros.retroarch               %{buildroot}%{_rpmconfigdir}/macros.d/macros.retroarch
+install -Dpm644 doc/libretro-example.spec.template %{buildroot}%{_docdir}/%{name}/libretro-example.spec
+install -Dpm644 doc/libretro-example.desktop.in    %{buildroot}%{_docdir}/%{name}/libretro-example.desktop.in
 
 %files
 %{_rpmconfigdir}/macros.d/*
