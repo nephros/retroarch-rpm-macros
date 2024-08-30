@@ -1,0 +1,47 @@
+Name:       libretro-example
+
+Summary:    Example for libretro
+Version:    24.08.08
+Release:    1
+Group:      Amusements/Games
+License:    GPLv2
+URL:        https://github.com/libretro/example-libretro
+Source0:    https://github.com/libretro/example-libretro/archive/refs/heads/master.tar.gz
+Source1:    https://raw.githubusercontent.com/libretro/libretro-core-info/master/example_libretro.info
+BuildRequires:  retroarch-rpm-macros
+BuildRequires:  make
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig
+
+%description
+%{summary}.
+# https://github.com/sailfishos-chum/main/blob/main/Metadata.md
+ %if "%{?vendor}" == "chum"
+ Title: Example Core (libretro)
+ Type: addon
+ Categories:
+   - Game
+   - Emulator
+ Custom:
+   Repo: https://github.com/libretro/example-libretro
+ Links:
+   Homepage: %{url}
+ %endif
+
+
+%prep
+%setup -q -n example-libretro-master
+
+%build
+FLAGS="-DMESA_EGL_NO_X11_HEADERS"
+%{_retroarch_buildcore}
+
+%install
+rm -rf %{buildroot}
+%_retroarch_installcore example_libretro
+install %SOURCE1 %{buildroot}%{_retroarch_infodir}
+
+
+%files
+%defattr(-,root,root,-)
+%{_retroarch_corefiles}

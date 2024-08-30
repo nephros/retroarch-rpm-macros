@@ -1,0 +1,17 @@
+[Desktop Entry]
+Version=1.0
+Name=@@NAME@@
+Type=Application
+Icon=@@ICON@@
+Exec=/usr/bin/env PULSE_PROP_media.role=x-maemo /usr/bin/retroarch --load-menu-on-error --fullscreen --libretro=@@CORENAME@@
+Terminal=false
+X-Nemo-Application-Type=generic
+X-Nemo-Single-Instance=yes
+Keywords=multi;engine;emulator;xmb;
+Categories=Game;Emulator;
+
+[X-Sailjail]
+Sandboxing=Disabled
+OrganizationName=org.libretro
+ApplicationName=RetroArch
+

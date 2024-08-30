@@ -1,0 +1,41 @@
+%_retroarch_root %{_datadir}/retroarch
+
+%_retroarch_coredir %{_retroarch_root}/cores
+%_retroarch_infodir %{_retroarch_coredir}
+%_retroarch_systemdir %{_retroarch_root}/data
+
+%_retroarch_set_build_flags \\\
+    %{set_build_flags} \
+    %ifarch aarch64 \
+    FLAGS="${FLAGS} -march=armv8.4-a -D__ARM_NEON__ -DHAVE_NEON" \
+    %endif \
+    export CFLAGS="${CFLAGS} ${FLAGS}" \
+    export CXXFLAGS="${CXXFLAGS} ${FLAGS}" \
+
+%_retroarch_buildcore \\\
+    %{_retroarch_set_build_flags} \
+    %ifarch %arm \
+    %ifarch aarch64 \
+    echo  "=== AARCH64 ===" \
+    %make_build platform=armv8 BUILD_64BIT=true \
+    %else \
+    echo  "=== ARM ===" \
+    %make_build platform=armv7 \
+    %endif \
+    %else \
+    echo  "=== OTHER/x86 ===" \
+    %make_build BUILD_64BIT=false \
+    %endif
+
+
+%_retroarch_installcore() \\\
+    install -d %{buildroot}%{_retroarch_coredir} \
+    install -d %{buildroot}%{_retroarch_infodir} \
+    install %1.so %{buildroot}%{_retroarch_coredir} \
+    if [ -e %1.info ]; then \
+    install %1.info %{buildroot}%{_retroarch_infodir} \
+    fi \
+
+%_retroarch_corefiles \
+%{_retroarch_coredir}/*.so \
+%{_retroarch_infodir}/*.info \
