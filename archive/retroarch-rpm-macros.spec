@@ -4,7 +4,6 @@ Release: 1%{?dist}
 Summary: RPM macros for libretro and retroarch
 License: BSD
 BuildArch: noarch
-Source0: %{name}-%{version}.tar.gz
 Source1: macros.retroarch
 Source2: libretro-example.spec.template
 Source3: libretro-example.desktop.in
@@ -15,7 +14,6 @@ Source3: libretro-example.desktop.in
 See the packages example .spec file on how to use.
 
 %prep
-%setup -q -n %{name}
 
 %build
 
