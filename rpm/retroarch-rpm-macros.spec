@@ -12,12 +12,12 @@ Source0: %{name}-%{version}.tar.gz
 See the packages example .spec file on how to use.
 
 %prep
-%setup -q -n %{name}
+%autosetup
 
 %build
 
 %install
-install -Dpm644 macros.retroarch               %{buildroot}%{_rpmconfigdir}/macros.d/macros.retroarch
+install -Dpm644 macros.retroarch                   %{buildroot}%{_rpmconfigdir}/macros.d/macros.retroarch
 install -Dpm644 doc/libretro-example.spec.template %{buildroot}%{_docdir}/%{name}/libretro-example.spec
 install -Dpm644 doc/libretro-example.desktop.in    %{buildroot}%{_docdir}/%{name}/libretro-example.desktop.in
 
