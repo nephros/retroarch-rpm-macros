@@ -14,17 +14,21 @@
 
 %_retroarch_buildcore \\\
     %{_retroarch_set_build_flags} \
+    mf=Makefile \
+    if [ -e Makefile.libretro ]; then \
+        mf=Makefile.libretro \
+    fi \
     %ifarch %arm \
     %ifarch aarch64 \
     echo  "=== AARCH64 ===" \
-    %make_build platform=armv8 BUILD_64BIT=true \
+    %make_build -f $mf platform=armv8 BUILD_64BIT=true %* \
     %else \
     echo  "=== ARM ===" \
-    %make_build platform=armv7 \
+    %make_build -f $mf platform=armv7 %* \
     %endif \
     %else \
     echo  "=== OTHER/x86 ===" \
-    %make_build BUILD_64BIT=false \
+    %make_build -f $mf BUILD_64BIT=false %* \
     %endif
 
 
