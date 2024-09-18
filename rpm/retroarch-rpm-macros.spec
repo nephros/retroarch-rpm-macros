@@ -1,5 +1,5 @@
 Name:    retroarch-rpm-macros
-Version: 24.08.29
+Version: 24.09.18
 Release: 1%{?dist}
 Summary: RPM macros for libretro and retroarch
 License: BSD
