@@ -7,8 +7,8 @@
 # These are common among frontends, hence _libretro
 %_libretro_coredir %{_libretro_libdir}
 %_libretro_infodir %{_libretro_datadir}/info
-%_libretro_dbdir %{_libretro_data}/database
-%_libretro_shaderdir %{_libretro_data}/shaders
+%_libretro_dbdir %{_libretro_datadir}/database
+%_libretro_shaderdir %{_libretro_datadir}/shaders
 %_libretro_systemdir %{_libretro_datadir}/data
 
 # Now these are really retroarch:
