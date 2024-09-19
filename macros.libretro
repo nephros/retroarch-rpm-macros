@@ -1,0 +1,63 @@
+
+%_libretro_prefix %nil
+
+%_libretro_libdir %{_libretro_prefix}%{_libdir}/libretro
+%_libretro_datadir %{_libretro_prefix}%{_datadir}/libretro
+
+# These are common among frontends, hence _libretro
+%_libretro_coredir %{_libretro_libdir}/cores
+%_libretro_infodir %{_libretro_datadir}/info
+%_libretro_systemdir %{_libretro_datadir}/data
+
+
+# Legacy definitions/locations:
+#%%_retroarch_coredir %%{_retroarch_root}/cores
+#%%_retroarch_infodir %%{_retroarch_coredir}
+# backwards compatible definition:
+%_retroarch_coredir %{_libretro_coredir}
+%_retroarch_systemdir %{_libretro_systemdir}
+
+# Now these are really retroarch:
+%_retroarch_root %{_datadir}/retroarch
+%_retroarch_assetdir %%{_retroarch_root}/assets
+%_retroarch_overlaydir %%{_retroarch_root}/overlays
+
+%_libretro_set_build_flags \\\
+    %{set_build_flags} \
+    %ifarch aarch64 \
+    FLAGS="${FLAGS} -march=armv8.4-a -D__ARM_NEON__ -DHAVE_NEON" \
+    %endif \
+    export CFLAGS="${CFLAGS} ${FLAGS}" \
+    export CXXFLAGS="${CXXFLAGS} ${FLAGS}" \
+
+%_libretro_buildcore \\\
+    %{_libretro_set_build_flags} \
+    mf=Makefile \
+    if [ -e Makefile.libretro ]; then \
+        mf=Makefile.libretro \
+    fi \
+    %ifarch %arm \
+    %ifarch aarch64 \
+    echo  "=== AARCH64 ===" \
+    %make_build -f $mf platform=armv8 BUILD_64BIT=true %{?*} \
+    %else \
+    echo  "=== ARM ===" \
+    %make_build -f $mf platform=armv7 %{?*} \
+    %endif \
+    %else \
+    echo  "=== OTHER/x86 ===" \
+    %make_build -f $mf BUILD_64BIT=false %{?*} \
+    %endif
+
+
+%_libretro_installcore() \\\
+    install -d %{buildroot}%{_libretro_coredir} \
+    install -d %{buildroot}%{_libretro_infodir} \
+    install %1.so %{buildroot}%{_libretro_coredir} \
+    if [ -e %1.info ]; then \
+    install %1.info %{buildroot}%{_libretro_infodir} \
+    fi \
+
+%_libretro_corefiles \
+%{_libretro_coredir}/*.so \
+%{_libretro_infodir}/*.info \
