@@ -34,14 +34,15 @@ BuildRequires:  pkgconfig
 
 %build
 FLAGS="-DMESA_EGL_NO_X11_HEADERS"
-%{_retroarch_buildcore}
+%{_libretro_buildcore}
 
 %install
 rm -rf %{buildroot}
-%_retroarch_installcore example_libretro
-install %SOURCE1 %{buildroot}%{_retroarch_infodir}
+# sore library name without .so extension
+%_libretro_installcore example_libretro
+install %SOURCE1 %{buildroot}%{_libretro_infodir}
 
 
 %files
 %defattr(-,root,root,-)
-%{_retroarch_corefiles}
+%{_libretro_corefiles}
