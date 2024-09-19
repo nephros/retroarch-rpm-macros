@@ -6,8 +6,7 @@ License: BSD
 BuildArch: noarch
 Source0: %{name}-%{version}.tar.gz
 
-Provides:    retroarch-rpm-macros
-Obsoletes:   retroarch-rpm-macros
+Obsoletes:   retroarch-rpm-macros <= %{version}
 Conflicts:   retroarch-rpm-macros
 
 %description
