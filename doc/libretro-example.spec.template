@@ -41,6 +41,12 @@ rm -rf %{buildroot}
 # sore library name without .so extension
 %_libretro_installcore example_libretro
 install %SOURCE1 %{buildroot}%{_libretro_infodir}
+# install a libretro shader
+install -D -p -m644 example.glsl %{_libretro_shaderdir}/
+# install a retroarch (!!) overlay
+install -D -p -m644 example.cfg _retroarch_overlaydir/example/
+install -D -p -m644 example.png _retroarch_overlaydir/example/
+
 
 
 %files

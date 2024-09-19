@@ -7,20 +7,21 @@
 # These are common among frontends, hence _libretro
 %_libretro_coredir %{_libretro_libdir}
 %_libretro_infodir %{_libretro_datadir}/info
+%_libretro_dbdir %{_libretro_data}/database
+%_libretro_shaderdir %{_libretro_data}/shaders
 %_libretro_systemdir %{_libretro_datadir}/data
 
+# Now these are really retroarch:
+%_retroarch_root %{_datadir}/retroarch
+%_retroarch_assetdir %{_retroarch_root}/assets
+%_retroarch_overlaydir %{_retroarch_root}/overlays
 
-# Legacy definitions/locations:
+# Legacy definitions/locations (form older version of this file)
 #%%_retroarch_coredir %%{_retroarch_root}/cores
 #%%_retroarch_infodir %%{_retroarch_coredir}
 # backwards compatible definition:
 %_retroarch_coredir %{_libretro_coredir}
 %_retroarch_systemdir %{_libretro_systemdir}
-
-# Now these are really retroarch:
-%_retroarch_root %{_datadir}/retroarch
-%_retroarch_assetdir %%{_retroarch_root}/assets
-%_retroarch_overlaydir %%{_retroarch_root}/overlays
 
 %_libretro_set_build_flags \\\
     %{set_build_flags} \
