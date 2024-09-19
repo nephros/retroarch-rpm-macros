@@ -5,7 +5,7 @@
 %_libretro_datadir %{_libretro_prefix}%{_datadir}/libretro
 
 # These are common among frontends, hence _libretro
-%_libretro_coredir %{_libretro_libdir}/cores
+%_libretro_coredir %{_libretro_libdir}
 %_libretro_infodir %{_libretro_datadir}/info
 %_libretro_systemdir %{_libretro_datadir}/data
 
